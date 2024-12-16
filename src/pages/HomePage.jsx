@@ -1,4 +1,5 @@
 import { useNetflixContext } from "../contex/NetflixContext";
+import Card from "../components/card/Card";
 
 export default function HomePage() {
   const { film, serie } = useNetflixContext();
@@ -8,35 +9,30 @@ export default function HomePage() {
 
   return (
     <>
-      {film.map((film) => (
-        <div key={film.id}>
-          <h1>{film.title}</h1>
-          <p>{film.original_title}</p>
-          <p>
-            {film.original_language}
-            <img
-              src={`https://flagsapi.com/${film.original_language.toUpperCase()}/flat/64.png`}
-            />
-          </p>
-          <p>{film.vote_average}</p>
-        </div>
-      ))}
+      <h1>FILM</h1>
+
+      {film.length > 0 ? (
+        film.map((element) => (
+          <div key={element.id}>
+            <Card bool={true} element={element}></Card>
+          </div>
+        ))
+      ) : (
+        <p>Nessun film trovato</p>
+      )}
 
       <hr />
+      <h1>SERIE TV</h1>
 
-      {serie.map((serie) => (
-        <div key={serie.id}>
-          <h1>{serie.name}</h1>
-          <p>{serie.original_name}</p>
-          <p>
-            {serie.original_language}
-            <img
-              src={`https://flagsapi.com/${serie.original_language.toUpperCase()}/flat/64.png`}
-            />
-          </p>
-          <p>{serie.vote_average}</p>
-        </div>
-      ))}
+      {serie.length > 0 ? (
+        serie.map((element) => (
+          <div key={element.id}>
+            <Card bool={false} element={element}></Card>
+          </div>
+        ))
+      ) : (
+        <p>Nessun film trovato</p>
+      )}
     </>
   );
 }
