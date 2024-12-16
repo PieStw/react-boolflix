@@ -13,30 +13,29 @@ export const NetflixProvider = ({ children }) => {
     },
   };
 
-  const [data, setData] = useState([]);
+  const [film, setFilm] = useState([]);
+  const [serie, setSerie] = useState([]);
 
   const showFilm = (value) => {
     fetch(`https://api.themoviedb.org/3/search/movie?query=${value}`, options)
       .then((res) => res.json())
       .then((res) => {
-        setData(res.results);
+        setFilm(res.results);
       })
       .catch((err) => console.error(err));
   };
 
-  const showSeries = (value) => {
+  const showSerie = (value) => {
     fetch(`https://api.themoviedb.org/3/search/tv?query=${value}`, options)
       .then((res) => res.json())
       .then((res) => {
-        const film = res.results;
-        const data2 = { ...data, film };
-        setData(data2);
+        setSerie(res.results);
       })
       .catch((err) => console.error(err));
   };
 
   return (
-    <NetflixContext.Provider value={{ data, showFilm, showSeries }}>
+    <NetflixContext.Provider value={{ film, showFilm, serie, showSerie }}>
       {children}
     </NetflixContext.Provider>
   );

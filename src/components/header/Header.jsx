@@ -5,11 +5,12 @@ import { useNetflixContext } from "../../contex/NetflixContext";
 export default function Header() {
   const [data, setData] = useState("");
 
-  const { showFilm } = useNetflixContext();
+  const { showFilm, showSerie } = useNetflixContext();
 
   function handleSubmit(e) {
     e.preventDefault();
     showFilm(data);
+    showSerie(data);
   }
 
   return (
