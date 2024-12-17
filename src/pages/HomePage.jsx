@@ -4,9 +4,6 @@ import styles from "../assets/css/HomePage.module.css";
 
 export default function HomePage() {
   const { film, serie } = useNetflixContext();
-
-  console.log(film);
-
   return (
     <>
       <h1 className={styles.filmTitle}>FILM</h1>

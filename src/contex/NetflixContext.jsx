@@ -16,27 +16,56 @@ export const NetflixProvider = ({ children }) => {
 
   const [film, setFilm] = useState([]);
   const [serie, setSerie] = useState([]);
+  const [genre, setGenre] = useState([]);
 
-  const showFilm = (value) => {
-    fetch(`https://api.themoviedb.org/3/search/movie?query=${value}`, options)
+  const showFilm = (nome, genere) => {
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${nome}`, options)
       .then((res) => res.json())
       .then((res) => {
-        setFilm(res.results);
+        console.log(genere);
+        if (genere === "Nessuno") setFilm(res.results);
+        else
+          setFilm(
+            res.results.filter((element) =>
+              element.genre_ids.includes(parseInt(genere))
+            )
+          );
       })
       .catch((err) => console.error(err));
   };
 
-  const showSerie = (value) => {
-    fetch(`https://api.themoviedb.org/3/search/tv?query=${value}`, options)
+  const showSerie = (nome, genere) => {
+    fetch(`https://api.themoviedb.org/3/search/tv?query=${nome}`, options)
       .then((res) => res.json())
       .then((res) => {
-        setSerie(res.results);
+        if (genere === "Nessuno") setSerie(res.results);
+        else
+          setSerie(
+            res.results.filter((element) =>
+              element.genre_ids.includes(parseInt(genere))
+            )
+          );
       })
       .catch((err) => console.error(err));
   };
+
+  const fetchGenres = () => {
+    fetch("https://api.themoviedb.org/3/genre/movie/list?language=en", options)
+      .then((res) => res.json())
+      .then((res) => {
+        setGenre(res.genres);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchGenres();
+  }, []);
 
   return (
-    <NetflixContext.Provider value={{ film, showFilm, serie, showSerie }}>
+    <NetflixContext.Provider
+      value={{ film, showFilm, serie, showSerie, fetchGenres, genre }}
+    >
       {children}
     </NetflixContext.Provider>
   );
