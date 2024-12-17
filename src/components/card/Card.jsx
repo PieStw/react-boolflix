@@ -25,7 +25,10 @@ export default function Card({ bool, element }) {
             <div className={styles.overlayContainer}>
               <h4 className="card-title">Titolo: {element.title}</h4>
               <h6 className="card-title">
-                Titolo originale: {element.original_title}
+                {" "}
+                {element.original_title === element.title
+                  ? ""
+                  : `Titolo originale: ${element.original_title}`}
               </h6>
               <p className={styles.voto}>
                 Voto:
@@ -45,7 +48,12 @@ export default function Card({ bool, element }) {
                   />
                 </p>
               </p>
-              <p className="card-text">Sinossi: {element.overview}</p>
+              <p className="card-text">
+                Sinossi:{" "}
+                {element.overview.length > 0
+                  ? element.overview
+                  : "Sinossi non disponibile"}
+              </p>
             </div>
           </div>
         </div>
@@ -57,15 +65,39 @@ export default function Card({ bool, element }) {
             src={`https://image.tmdb.org/t/p/w500${element.poster_path}`}
           ></img>
           <div className={styles.overlay}>
-            <h4 className="card-title">{element.name}</h4>
-            <h5 className="card-title">{element.original_name}</h5>
-            <p className="card-text">
-              {element.original_language}
-              <img
-                src={`https://flagsapi.com/${element.original_language.toUpperCase()}/flat/64.png`}
-              />
-            </p>
-            <p className="card-text">{element.vote_average}</p>
+            <div className={styles.overlayContainer}>
+              <h4 className="card-title">Titolo: {element.name}</h4>
+              <h6 className="card-title">
+                {" "}
+                {element.original_name === element.name
+                  ? ""
+                  : `Titolo originale: ${element.original_name}`}
+              </h6>
+              <p className={styles.voto}>
+                Voto:
+                {renderStars(updateVoto).map((valore) => {
+                  if (valore === "piena")
+                    return <i class="fa-solid fa-star"></i>;
+                  else return <i class="fa-regular fa-star"></i>;
+                })}
+              </p>
+
+              <p className="card-text">
+                Nazionalità:{" "}
+                <p>
+                  {element.original_language}{" "}
+                  <img
+                    src={`https://flagsapi.com/${element.original_language.toUpperCase()}/flat/64.png`}
+                  />
+                </p>
+              </p>
+              <p className="card-text">
+                Sinossi:{" "}
+                {element.overview.length > 0
+                  ? element.overview
+                  : "Sinossi non disponibile"}
+              </p>
+            </div>
           </div>
         </div>
       )}
