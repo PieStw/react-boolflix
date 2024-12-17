@@ -9,7 +9,8 @@ export const NetflixProvider = ({ children }) => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: import.meta.env.VITE_API_KEY,
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NjkyNGRhMzYxYjNlZGVkMzRkNGQ3OWJkMTAwYzUxNSIsIm5iZiI6MTczNDM0Nzg5OS43Niwic3ViIjoiNjc2MDBjN2I2MmY5MGM5OGUzZTI0MDI2Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.3_-hZh8TUj00aDkxejtClG7dpJwUXdvTRA-_ZSa6wg8",
     },
   };
 
